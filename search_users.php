@@ -25,7 +25,7 @@
 						LIMIT 0 , 50";
 
 			//convert any HTML characters (e.g. tags) to text, rendering any malicious code unable to run
-			$safeQuery = htmlentities($query);			
+			$safeQuery = htmlentities(trim($query));			
 			//save the results of the query OR return a comprehensive error message including SQL used if the query is unsuccessful.
 			$result = mysqli_query($db, $safeQuery) 
 				or trigger_error("The query failed! The SQL was:<BR/> $query.<BR/><BR/>It returned the error: "
