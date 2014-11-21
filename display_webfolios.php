@@ -10,6 +10,12 @@
 		<?php 
 			//include file containing log-in credentials
 			require_once 'login.php';
+			//function to sanitise output before it reaches the user
+			function cleanOutput($data)
+			{
+				htmlentities(trim($data), ENT_QUOTES);
+				return $data;
+			}
 			//store the connection in a variable.  connection requires 4 arguments - server(host), user, password and database name
 			$db = mysqli_connect($server, $user, $pass, $database)
 			//if not successful, display the actual error, and then terminate the program so as not to reveal further (irrelevant) error messages 
@@ -24,14 +30,14 @@
 						ORDER BY Name ASC
 						LIMIT 0, 50";
 
-			//convert any HTML characters (e.g. tags) to text, rendering any malicious code unable to run
-			$safeQuery = htmlentities($query);			
+			//call function
+			cleanOutput($query);			
 			//save the results of the query OR return a comprehensive error message including SQL used if the query is unsuccessful.
-			$result = mysqli_query($db, $safeQuery) 
+			$result = mysqli_query($db, $query) 
 				or trigger_error("The query failed! The SQL was:<BR/> $query.<BR/><BR/>It returned the error: "
 				. mysqli_error($db) , E_USER_ERROR);  
 
-			//cretae an array, fetch each record in turn and append it to the array
+			//create an array, fetch each record in turn and append it to the array
 			$rows = array();
 			while($row = mysqli_fetch_assoc($result)) 
 			{ 

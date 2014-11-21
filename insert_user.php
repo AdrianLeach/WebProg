@@ -55,7 +55,7 @@
 			$errorMsg = "Your name input was not valid.  Please do not use symbols or numbers.<BR/>";
 			$errorEmail = "Your email address was not accepted.  Please try again.<BR/>";
 			$errorDob = "Your date of birth was not accepted.  The format required is YYYY-MM-DD.<BR/>";
-			$errorUser = "Your username or password was not accepted.  Please use only letters, numbers and underscores.";
+			$errorUser = "Your username or password was not accepted.  Please use only letters, numbers and underscores.<BR/>";
 
 			//begin testing - first, user input for first name and last name.
 			foreach ($test_array_names as $check)
@@ -72,6 +72,7 @@
 			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
 			{
 				echo $errorEmail;
+				exit("You will now be returned to the previous page.");
 			}
 
 			//test dob (need to find out how to test for format - currently DD-MM-YYYY will work)
